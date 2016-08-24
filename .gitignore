@@ -1,0 +1,22 @@
+clear,clc,close all
+
+%% Ingreso de Periodo de muestreo
+Ts=input('Ingrese el periodo de muestreo del sistema en segundos: ');
+Fs=1/Ts;    %Frecuencia de Muestreo [Hz]
+
+%% Ingreso de Frecuencia de corte
+Fc=input('Ingrese La frecuencia de corte en Hz: ');
+
+%% Mensaje de error de muestreo
+if(Fc/(Fs/2) >= 1)
+    fprintf('Error: La Frecuencia m·xima que puedes muestrear es: ')
+    fprintf(num2str(Fs/2))
+    fprintf('Hz \n')
+end
+
+n=input('Ingrese el orden del filtro: ');
+[b,a] = butter(n,Fc/(Fs/2),'low');
+Fil_d=tf(b,a,Ts);
+
+fprintf('Tu funciÛn de transfrerencia para filtro digital es: ')
+Fil_d
